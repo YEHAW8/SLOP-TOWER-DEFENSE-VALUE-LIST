@@ -333,11 +333,6 @@ const HIDE_VARIANTS = true;
 
 function render(){
   $('unitGrid').innerHTML='';
-  function getExist(u, mode) {
-    if (mode === 'shiny' || mode === 'shinySigned') return u.shinyExist ?? u.exist ?? 0;
-    if (mode === 'void' || mode === 'voidSigned') return u.voidExist ?? u.exist ?? 0;
-    return u.exist ?? 0;
-  }
 
   Units.filter(u=>!u.hidden).forEach(u=>{
     const c=document.createElement('div');
@@ -364,10 +359,6 @@ function render(){
         <div class="unit-stat">
           <span class="unit-stat-label">Demand</span>
           <span class="unit-stat-value unit-demand">${u.demand ?? 0}/10</span>
-        </div>
-        <div class="unit-stat">
-          <span class="unit-stat-label">Exist</span>
-          <span class="unit-stat-value unit-exist">${getExist(u, 'normal')}</span>
         </div>
         <div class="unit-stat unit-stability">
           <span class="unit-stat-label">Stability</span>
