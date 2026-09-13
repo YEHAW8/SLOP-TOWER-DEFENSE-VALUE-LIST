@@ -173,11 +173,10 @@ const Units = [
   {
     name: 'Guest 666',
     img: 'guest666',
-    rarity: 'Placeholder',
+    rarity: 'Exclusive',
     base: 2750,
     demand: '4',
-    exist: 11,
-    stability: 'Stable'
+    stability: 'slowly increasing'
   },
   {
     name: 'Alien 1x1x1x1',
@@ -185,7 +184,6 @@ const Units = [
     rarity: 'Placeholder',
     base: 500,
     demand: '6',
-    exist: 500,
     stability: 'Stable'
   },
   { name: 'Patriot TV Man', img: 'Patriot Tv Man', rarity: 'Exclusive', base: 0, valueNote: 'O/C', demand: '4', stability: 'Stable' },
@@ -203,9 +201,9 @@ const Units = [
 
   { name: 'Watchman of Doom', img: 'WOD', rarity: 'Placeholder', base: 3799, demand: '10',  stability: 'Decreasing', status: 'Overpaid' },
   { name: 'Orbital Camara', img: 'orbital_camara', rarity: 'Placeholder', base: 3199, demand: '7', stability: 'Decreasing', status: 'Underpaid' },
-  { name: 'Drako', img: 'drako', rarity: 'Placeholder', base: 3000, demand: '?', stability: 'Decreasing' },
-  { name: 'Toilet-Gman', img: 'toilet_gman', rarity: 'Placeholder', base: 2300, demand: '6', stability: 'Decreasing' },
-  { name: 'King Noobini', img: 'king_noobini', rarity: 'Placeholder', base: 2100, demand: '7', stability: 'Decreasing' },
+  { name: 'Drako', img: 'D', rarity: 'Placeholder', base: 3000, demand: '?', stability: 'Decreasing' },
+  { name: 'Toilet-Gman', img: 'G', rarity: 'Placeholder', base: 2300, demand: '6', stability: 'Decreasing' },
+  { name: 'King Noobini', img: 'King Noobini', rarity: 'Placeholder', base: 2100, demand: '7', stability: 'Decreasing' },
 
   { name: 'True Slop Man', img: 'true_slop_man', rarity: 'Placeholder', base: 2500, demand: '5?', stability: 'Stable' },
   { name: 'Moon Blossom', img: 'Moon Blossom', rarity: 'Placeholder', base: 2000, demand: '9', stability: 'Stable' },
@@ -216,8 +214,8 @@ const Units = [
   { name: 'Cherry Blossom', img: 'cherry_blossom', rarity: 'Placeholder', base: 1150, demand: '7', stability: 'Stable' },
   { name: 'Kinger', img: 'kinger', rarity: 'Placeholder', base: 1000, demand: '5', stability: 'Stable' },
   { name: 'Silly Noob', img: 'Silly Noob', rarity: 'Placeholder', base: 600, demand: '7', stability: 'Decreasing' },
-  { name: 'Stalker', img: 'Stalker', rarity: 'Placeholder', base: 550, demand: '7', stability: 'Decreasing' },
-  { name: 'Astral Axolot', img: 'astral_axolot', rarity: 'Placeholder', base: 600, demand: '6', stability: 'Unstable' },
+  { name: 'Stalker', img: 'Stalker', rarity: 'Secret', base: 550, demand: '7', stability: 'Decreasing' },
+  { name: 'Astral Axolot', img: 'Axolot', rarity: 'Placeholder', base: 600, demand: '6', stability: 'Unstable' },
   { name: 'Tung Tung God', img: 'tung_tung_god', rarity: 'Placeholder', base: 550, demand: '5', stability: 'Unstable' },
   { name: 'Future Large Clockman', img: 'future_large_clockman', rarity: 'Placeholder', base: 500, demand: '5', stability: 'Stable' },
   { name: 'Candy Blossom', img: 'candy_blossom', rarity: 'Placeholder', base: 400, demand: '6', stability: 'Stable' },
@@ -238,7 +236,7 @@ const Units = [
   { name: 'Issac9', img: 'issac9', rarity: 'Placeholder', base: 60, demand: '0', stability: 'Stable' },
   { name: 'Azure', img: 'azure', rarity: 'Placeholder', base: 55, demand: '0', stability: 'Stable' },
   { name: 'Ember Lily', img: 'ember_lily', rarity: 'Placeholder', base: 100, demand: '0', stability: 'Stable' },
-  { name: 'Sahur Statue', img: 'sahur_statue', rarity: 'Placeholder', base: 90, demand: '0', stability: 'Stable' },
+  { name: 'Sahur Statue', img: 'Sahur statue', rarity: 'Placeholder', base: 90, demand: '0', stability: 'Stable' },
 
   { name: 'Tung Midas', img: 'tung_midas', rarity: 'Placeholder', base: 80, demand: '0', stability: 'Stable' },
   { name: 'Gubbity', img: 'gubbity', rarity: 'Placeholder', base: 120, demand: '0', stability: 'Stable' },
@@ -256,35 +254,7 @@ const Units = [
   { name: 'Dandy', img: 'dandy', rarity: 'Placeholder', base: 40, demand: '0', stability: 'Stable' },
   { name: 'Two Time', img: 'two_time', rarity: 'Placeholder', base: 20, demand: '0', stability: 'Stable' },
 
-  { name: 'Milestone Forsakend Crafts', img: 'milestone_forsakend_crafts', rarity: 'Placeholder', base: 30, demand: '0', stability: 'Stable' },
-  { name: 'Titan Camara Man', img: 'titan_camara_man', rarity: 'Placeholder', base: 5, demand: '0', stability: 'Stable' },
-  { name: 'Titan TV', img: 'titan_tv', rarity: 'Placeholder', base: 2, demand: '0', stability: 'Stable' },
-  { name: 'Maxwell', img: 'maxwell', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
-  { name: 'Large Clockman', img: 'large_clockman', rarity: 'Placeholder', base: 30, demand: '0', stability: 'Stable' },
-  { name: 'Aether Fruit', img: 'aether_fruit', rarity: 'Placeholder', base: 50, demand: '0', stability: 'Stable' },
-  { name: 'Alien Noob', img: 'alien_noob', rarity: 'Placeholder', base: 10, demand: '0', stability: 'Stable' },
-  { name: 'Afterwind', img: 'afterwind', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
-  { name: 'Diamond Cat', img: 'diamond_cat', rarity: 'Placeholder', base: 2, demand: '0', stability: 'Stable' },
-  { name: 'Lucky Block', img: 'lucky_block', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
-  { name: 'Alien Chance', img: 'alien_chance', rarity: 'Placeholder', base: 7, demand: '0', stability: 'Stable' },
-  { name: 'Verity', img: 'verity', rarity: 'Placeholder', base: 999999999999999999999999999999999, demand: '0', stability: 'Stable', valueNote: 'JOKE' },
-  { name: 'Banana', img: 'banana', rarity: 'Placeholder', base: 2, demand: '0', stability: 'Stable' },
-  { name: 'Mango Trollface', img: 'mango_trollface', rarity: 'Placeholder', base: 2, demand: '0', stability: 'Stable' },
-  { name: 'Retro Builderman', img: 'retro_builderman', rarity: 'Placeholder', base: 4, demand: '0', stability: 'Stable' },
-  { name: 'King Pepper God', img: 'king_pepper_god', rarity: 'Placeholder', base: 9, demand: '0', stability: 'Stable' },
-  { name: 'Golden Freddy Trashcan', img: 'golden_freddy_trashcan', rarity: 'Placeholder', base: 8, demand: '0', stability: 'Stable' },
-  { name: 'Kreek', img: 'kreek', rarity: 'Placeholder', base: 5, demand: '0', stability: 'Stable' },
-  { name: 'Onest', img: 'onest', rarity: 'Placeholder', base: 4, demand: '0', stability: 'Stable' },
-  { name: 'Happy Computer', img: 'happy_computer', rarity: 'Placeholder', base: 4, demand: '0', stability: 'Stable' },
-  { name: 'Summer E9', img: 'summer_e9', rarity: 'Placeholder', base: 5, demand: '0', stability: 'Stable' },
-  { name: 'ASTRO Large TV Man', img: 'astro_large_tv_man', rarity: 'Placeholder', base: 10, demand: '0', stability: 'Stable' },
-  { name: 'Summer Onest', img: 'summer_onest', rarity: 'Placeholder', base: 8, demand: '0', stability: 'Stable' },
-  { name: 'Sopper', img: 'sopper', rarity: 'Placeholder', base: 0, valueNote: 'Useless', demand: '0', stability: 'Stable' },
-  { name: 'Gandle', img: 'gandle', rarity: 'Placeholder', base: 2, demand: '0', stability: 'Stable' },
-  { name: 'Pomni', img: 'pomni', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
-  { name: 'Vova', img: 'vova', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
-  { name: 'Mafia', img: 'mafia', rarity: 'Placeholder', base: 8, demand: '0', stability: 'Stable' },
-  { name: 'Admin Lucky Block', img: 'admin_lucky_block', rarity: 'Placeholder', base: 4, demand: '0', stability: 'Stable' },
+  
 
   { name: 'Showcase', img: 'placeholder', rarity: 'Showcase', base: 0, demand: '0', exist: 0, shinyExist: 0, voidExist: 0, stability: 'Stable', signedValue: 0, shinyValue: 0, voidValue: 0, shinySignedValue: 0, voidSignedValue: 0, hidden: true }
 ];
