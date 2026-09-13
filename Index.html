@@ -1,0 +1,428 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Slop Tower Defense Value List</title><style>:root{
+  --bg:linear-gradient(135deg,#8a2be2,#2979ff,#1de9b6);
+  --card:#11152a;
+  --text:#eee;
+  --muted:#aab;
+  --accent:#8a2be2;
+}
+body.dark{--bg:#050505;--card:#111;--text:#fff;--muted:#aaa;--accent:#fff}
+body.glass{--bg:linear-gradient(135deg,#141e30,#243b55);--card:#ffffff14;--text:#fff;--muted:#ccc;--accent:#00e5ff}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  background-size:400% 400%;
+  animation:bg 15s ease infinite;
+  color:var(--text);
+  background-attachment:fixed;
+}
+@keyframes bg{50%{background-position:100% 100%}}
+nav{
+  padding:16px 40px;
+  background:#0008;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  box-shadow:0 5px 0 #0003,0 12px 28px #0003;
+  border-bottom:1px solid #fff1;
+}
+nav b{font-size:18px}
+button{cursor:pointer}
+nav button{
+  background:none;
+  border:0;
+  color:var(--muted);
+  font-weight:700;
+  margin-left:15px;
+}
+section{display:none;max-width:1400px;margin:auto;padding:40px}
+section.active{display:block}
+.hero{text-align:center}
+.hero img{width:120px;border-radius:20px;box-shadow:0 9px 0 #0003,0 18px 28px #0004}
+.hero h1{
+  font-size:32px;
+  background:linear-gradient(90deg,#8a2be2,#2979ff,#1de9b6);
+  color:transparent;
+  background-clip:text;
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.card,.side{
+  background:#0006;
+  border-radius:18px;
+  padding:18px;
+  border:1px solid #fff1;
+  box-shadow:0 7px 0 #0004,0 16px 28px #0003;
+  transform:perspective(1000px) translateZ(0);
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+.card:hover,.side:hover{
+  transform:perspective(1000px) rotateX(1deg) rotateY(-1deg) translateY(-3px);
+  box-shadow:0 10px 0 #0004,0 22px 34px #0004;
+}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;box-shadow:0 5px 0 #0004,0 10px 18px #0003}
+.card b{display:block;margin-top:10px}
+.muted{color:var(--muted);font-size:13px}
+.variants{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.v{
+  border:0;
+  border-radius:8px;
+  padding:7px 9px;
+  background:#fff1;
+  color:var(--text);
+  font-weight:700;
+  font-size:11px;
+  box-shadow:0 3px 0 #0003;
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.v:hover{transform:translateY(-2px);box-shadow:0 5px 0 #0003}
+.v:active{transform:translateY(1px);box-shadow:0 2px 0 #0003}
+.v.active{background:var(--accent);color:#000}
+.trade{display:flex;gap:25px;flex-wrap:wrap}
+.side{flex:1;min-width:280px}
+.add{
+  border:0;
+  border-radius:10px;
+  background:var(--accent);
+  padding:12px 20px;
+  font-weight:700;
+  color:#000;
+  margin-top:12px;
+  box-shadow:0 4px 0 #0004,0 8px 14px #0002;
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.add:hover{transform:translateY(-2px);box-shadow:0 6px 0 #0004,0 12px 18px #0003}
+.add:active{transform:translateY(1px);box-shadow:0 2px 0 #0004}
+.entry{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#0005;
+  border-radius:12px;
+  padding:10px;
+  margin-bottom:8px;
+  position:relative;
+  box-shadow:0 4px 0 #0003;
+}
+.entry img{width:55px;height:55px;object-fit:cover;border-radius:10px;box-shadow:0 4px 0 #0004}
+.entry .val{margin-left:auto;font-weight:700}
+.overlay{position:absolute;top:3px;right:3px;background:#000b;padding:3px 5px;border-radius:5px;font-size:10px}
+.total{text-align:right;margin-top:12px;font-weight:800}
+.result{text-align:center;font-size:25px;font-weight:700;margin-top:25px;text-shadow:0 4px 10px #0005}
+.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:5}
+.modal.show{display:grid}
+.box{
+  background:#000e;
+  padding:25px;
+  border-radius:18px;
+  width:360px;
+  max-width:94vw;
+  box-shadow:0 8px 0 #0006,0 25px 50px #0008;
+  border:1px solid #fff2;
+}
+.box label{display:block;color:var(--muted);font-size:13px;margin-top:10px}
+.box select,.box input{width:100%;padding:10px;border:0;border-radius:9px;background:#222;color:#fff;margin-top:5px}
+.box .add{width:100%}
+.discord{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#5865f2;
+  color:#fff;
+  text-decoration:none;
+  padding:12px 20px;
+  border-radius:99px;
+  font-weight:700;
+  box-shadow:0 5px 0 #0005,0 10px 18px #0003;
+}
+.hide{display:none}
+.copyright{max-width:800px;margin:auto;line-height:1.8;background:#0006;padding:30px;border-radius:18px;box-shadow:0 7px 0 #0004,0 16px 28px #0003}
+.unit-card-title{font-size:18px;font-weight:900;margin:11px 0 8px}
+.unit-stats{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid #ffffff12}
+.unit-stat{display:flex;align-items:baseline;gap:4px;min-height:0;padding:0;background:none;border:0;box-shadow:none}
+.unit-stat-label{font-size:10px;color:var(--muted);font-weight:700}
+.unit-stat-value{font-size:13px;font-weight:850;white-space:nowrap}
+.unit-value{font-size:15px}.unit-demand{color:#f3d27a}.unit-exist{color:#8fd8e7}
+.unit-stability{margin-left:auto;display:flex;align-items:center;gap:6px}
+.stability-pill{max-width:180px;min-width:72px;text-align:center;padding:4px 9px;border-radius:999px;background:#ffffff0d;border:1px solid #ffffff12;font-size:10px;font-weight:850;box-shadow:0 2px 0 #0003;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stability-pill[data-status="unstable"]{background:#ff45451f;color:#ff7777;border-color:#ff555544}
+.stability-pill[data-status="stable"]{background:#4f9cff1f;color:#86bdff;border-color:#5da9ff44}
+.stability-pill[data-status="rising"]{background:#2bd77b1f;color:#6be6a3;border-color:#39d88944}
+.stability-pill[data-status="falling"]{background:#ff9b451f;color:#ffc078;border-color:#ffad5c44}
+.stability-pill.custom-status{color:var(--custom-color);background:color-mix(in srgb,var(--custom-color) 14%,transparent);border-color:color-mix(in srgb,var(--custom-color) 35%,transparent)}
+button,.nav button,.tab{transition:transform .12s ease,box-shadow .12s ease}
+.rarity{display:inline-block;margin-top:5px;padding:3px 7px;border-radius:6px;background:#ffffff10;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.2px}.item-meta{display:flex;gap:14px;margin-top:8px;color:var(--muted);font-size:11px}.item-meta b{color:var(--text);font-size:12px;margin-left:2px}
+@media(max-width:700px){section{padding:20px}nav{padding:14px;justify-content:center}.trade{flex-direction:column}}
+@media(max-width:500px){.unit-stats{gap:8px}.unit-stability{margin-left:0;width:100%;justify-content:flex-start}}
+
+/* Variant values are stored for future use but hidden from the public page. */
+.variant, .variants, .variant-row, .variant-select, .variant-buttons, [data-variant] { display: none !important; }
+</style></head><body>
+<nav><b>Slop Tower Defense Value List</b><div><button onclick="show('home')">Home</button><button onclick="show('values')">Value List</button><button onclick="show('trade')">Trade Calculator</button><button onclick="show('credits')">Credits</button><button onclick="show('copyright')">Copyright</button><button onclick="openSettings()">⚙️</button></div></nav>
+<section id="home" class="active"><div class="hero"><img src="placeholder.png" alt="logo"><h1>Welcome to Slop Tower Defense Value List</h1><p>Check values, trade smart, win more!</p><p class="muted">⚠️ If value is 0, it means O/C or N/A.</p><p>1 value = 1 gem 💎</p></div></section>
+<section id="values"><h2>Tower Values</h2><div class="grid" id="unitGrid"></div><h2>Item Values</h2><div class="grid" id="itemGrid"></div></section>
+<section id="trade"><div class="trade"><div class="side" id="you"><h3>Your Offer</h3><div class="list"></div><button class="add" onclick="openModal('you')">＋ Add Tower / Item</button><div class="total">Total: <span id="yt">0.00</span></div></div><div class="side" id="them"><h3>Their Offer</h3><div class="list"></div><button class="add" onclick="openModal('them')">＋ Add Tower / Item</button><div class="total">Total: <span id="tt">0.00</span></div></div></div><div class="result" id="res">Fair 🤝</div></section>
+<section id="credits"><h2>Credits</h2><div class="grid"><div class="card"><img src="placeholder.png"><b>Notatroll</b><span class="muted">Created the whole site, coded all the logic, and designed the site.</span></div><div class="card"><img src="placeholder.png"><b>Sin Vida</b><span class="muted">Owner of the page and helped a TON with the values.</span></div></div></section>
+<section id="copyright"><div class="copyright"><h2>📄 Copyright</h2><p>I made this site myself. The code, design, layout, and site logic belongs to <b>notatroll</b> (Discord: <b>realnotatrollyt</b>), except third-party/game values and supplied assets.</p><p>Please don't copy, steal, or repost the website/code without permission.</p></div></section>
+<div class="modal" id="modal"><div class="box"><h3>Add Tower / Item</h3><label>Type</label><select id="type"><option value="tower">Tower</option><option value="item">Item</option></select><label>Name</label><select id="select"></select><label id="variantLabel">Variant</label><select id="variant"></select><label>Amount</label><input id="amt" type="number" min="1" value="1"><button class="add" onclick="addEntry()">Add</button></div></div>
+<div class="modal" id="settings"><div class="box"><h3>⚙️ Settings</h3><label>Theme</label><select id="theme"><option value="colorful">Colorful</option><option value="dark">Dark</option><option value="glass">Glass</option></select><button class="add" onclick="saveTheme()">Save</button></div></div>
+<a class="discord" id="discord" href="#">Join our Discord</a>
+<script>
+// Add towers here. img is the NAME/key only; the browser tries "name.png".
+// If that image fails, placeholder.png is used automatically.
+// stability is text, e.g. Stable, Rising, Unstable, Falling, etc.
+const Units = [
+  // S Tier
+  {
+    name: 'Guest 666',
+    img: 'guest666',
+    rarity: 'Placeholder',
+    base: 2750,
+    demand: '4',
+    exist: 11,
+    stability: 'Stable'
+  },
+  {
+    name: 'Alien 1x1x1x1',
+    img: 'alien_1x1x1x1',
+    rarity: 'Placeholder',
+    base: 500,
+    demand: '6',
+    exist: 500,
+    stability: 'Stable'
+  },
+  { name: 'Patriot TV Man', img: 'patriot_tv_man', rarity: 'Placeholder', base: 0, valueNote: 'O/C', demand: '4', exist: '3-5', stability: 'Stable' },
+  { name: 'Party Cat', img: 'party_cat', rarity: 'Placeholder', base: 0, valueNote: 'O/C', demand: '5', exist: '5-9+', stability: 'Stable' },
+  { name: 'Upgraded Titan Clockman', img: 'upgraded_titan_clockman', rarity: 'Placeholder', base: 0, valueNote: '???', demand: '8', exist: '1', shinyExist: '0', voidExist: '0', stability: 'Unstable' },
+  { name: 'Upgraded Titan TV Man', img: 'upgraded_titan_tv_man', rarity: 'Placeholder', base: 10000, demand: '6', exist: '6+', stability: 'Unstable' },
+
+  { name: 'Corgi Poseidon', img: 'corgi_poseidon', rarity: 'Placeholder', base: 6500, demand: '8', exist: '20+', stability: 'Unstable' },
+  { name: 'Star Fruit', img: 'star_fruit', rarity: 'Placeholder', base: 5500, demand: '10', exist: '70+', stability: 'Stable', status: 'Overpaid' },
+  { name: 'Soul Fruit', img: 'soul_fruit', rarity: 'Placeholder', base: 5250, demand: '3', exist: '30+', stability: 'Unstable', status: 'Underpaid' },
+  { name: 'Teapot 1x1x1x1', img: 'teapot_1x1x1x1', rarity: 'Placeholder', base: 5000, demand: '4', exist: '8+', stability: 'Stable' },
+  { name: 'Caine', img: 'caine', rarity: 'Placeholder', base: 4700, demand: '6', exist: '20+', stability: 'Unstable', status: 'Underpaid' },
+  { name: 'True Ohio Man', img: 'trueohioman', rarity: 'Placeholder', base: 4500, demand: '5', exist: '10+', stability: 'Stable', status: 'Underpaid' },
+
+  { name: 'Watchman of Doom', img: 'watchman_of_doom', rarity: 'Placeholder', base: 3999, demand: '10', exist: '??? (BUGGED)', stability: 'Unstable', status: 'Overpaid' },
+  { name: 'Orbital Camara', img: 'orbital_camara', rarity: 'Placeholder', base: 3499, demand: '7', exist: '140+', stability: 'Unstable', status: 'Underpaid' },
+  { name: 'Drako', img: 'drako', rarity: 'Placeholder', base: 3000, demand: '?', exist: '??? (BUGGED)', stability: 'Unstable' },
+  { name: 'Toilet-Gman', img: 'toilet_gman', rarity: 'Placeholder', base: 2800, demand: '6', exist: '??? (BUGGED)', stability: 'Unstable' },
+  { name: 'King Noobini', img: 'king_noobini', rarity: 'Placeholder', base: 2600, demand: '7', exist: '??? (BUGGED)', stability: 'Unstable' },
+
+  // A Tier
+  { name: 'True Slop Man', img: 'true_slop_man', rarity: 'Placeholder', base: 2500, demand: '5?', exist: '3+', stability: 'Stable' },
+  { name: 'Moon Blossom', img: 'moon_blossom', rarity: 'Placeholder', base: 2000, demand: '9', exist: '40+', stability: 'Stable' },
+  { name: 'Speakerman Executioner', img: 'speakerman_executioner', rarity: 'Placeholder', base: 1700, demand: '7', exist: '8+', stability: 'Stable' },
+  { name: 'Injured Titan Camara Man', img: 'injured_titan_camara_man', rarity: 'Placeholder', base: 1400, demand: '3', exist: '2+', stability: 'Stable' },
+  { name: 'Titanic Cyborg Cat', img: 'titanic_cyborg_cat', rarity: 'Placeholder', base: 1200, demand: '7', exist: '8+', stability: 'Stable' },
+  { name: 'Cherry Blossom', img: 'cherry_blossom', rarity: 'Placeholder', base: 1150, demand: '7', exist: '60+', stability: 'Stable' },
+  { name: 'Kinger', img: 'kinger', rarity: 'Placeholder', base: 1000, demand: '5', exist: '40+', stability: 'Stable' },
+  { name: 'Silly Noob', img: 'silly_noob', rarity: 'Placeholder', base: 800, demand: '7', exist: '130+', stability: 'Unstable' },
+  { name: 'Stalker', img: 'stalker', rarity: 'Placeholder', base: 700, demand: '7', exist: '140+', stability: 'Unstable' },
+  { name: 'Astral Axolot', img: 'astral_axolot', rarity: 'Placeholder', base: 600, demand: '6', exist: '100+', stability: 'Unstable' },
+  { name: 'Tung Tung God', img: 'tung_tung_god', rarity: 'Placeholder', base: 550, demand: '5', exist: '100+', stability: 'Unstable' },
+  { name: 'Future Large Clockman', img: 'future_large_clockman', rarity: 'Placeholder', base: 500, demand: '5', exist: '40+', stability: 'Stable' },
+  { name: 'Candy Blossom', img: 'candy_blossom', rarity: 'Placeholder', base: 400, demand: '6', exist: '900+', stability: 'Stable' },
+  { name: 'Huge Cyborg Cat', img: 'huge_cyborg_cat', rarity: 'Placeholder', base: 350, demand: '4', exist: '40+', stability: 'Stable' },
+  { name: 'Summer Titan Camara Man', img: 'summer_titan_camara_man', rarity: 'Placeholder', base: 300, demand: '6', exist: '230+', stability: 'Unstable' },
+  { name: 'Alien Gubby', img: 'alien_gubby', rarity: 'Placeholder', base: 300, demand: '4', exist: '230+', stability: 'Unstable' },
+  { name: 'Titan Clockman', img: 'titan_clockman', rarity: 'Placeholder', base: 250, demand: '8', exist: '130+', stability: 'Stable' },
+  { name: 'Ban Ban Sahur', img: 'ban_ban_sahur', rarity: 'Placeholder', base: 200, demand: '6', exist: '100+', stability: 'Unstable' },
+  { name: 'Golden Slop Man', img: 'golden_slop_man', rarity: 'Placeholder', base: 200, demand: '?', exist: '???', stability: 'Stable' },
+  { name: 'Blimp Dragon', img: 'blimp_dragon', rarity: 'Placeholder', base: 150, demand: '3', exist: '???', stability: 'Stable' },
+  { name: 'Pirate TV Man', img: 'pirate_tv_man', rarity: 'Placeholder', base: 150, demand: '5', exist: '280+', stability: 'Stable' },
+  { name: 'Abstracted', img: 'abstracted', rarity: 'Placeholder', base: 125, demand: '3', exist: '200+', stability: 'Stable' },
+  { name: 'Upgraded Titan Camara Man', img: 'upgraded_titan_camara_man', rarity: 'Placeholder', base: 100, demand: '6', exist: '300+', stability: 'Stable' },
+  { name: 'Secret Lucky Block', img: 'secret_lucky_block', rarity: 'Placeholder', base: 100, demand: '5', exist: '100+', stability: 'Stable' },
+
+  // Godly from Summon
+  { name: 'Noli', img: 'noli', rarity: 'Placeholder', base: 70, demand: '0', exist: '75', stability: 'Stable' },
+  { name: 'UTS', img: 'uts', rarity: 'Placeholder', base: 75, demand: '0', exist: '75', stability: 'Stable' },
+  { name: 'Issac9', img: 'issac9', rarity: 'Placeholder', base: 60, demand: '0', exist: '60', stability: 'Stable' },
+  { name: 'Azure', img: 'azure', rarity: 'Placeholder', base: 55, demand: '0', exist: '55', stability: 'Stable' },
+  { name: 'Ember Lily', img: 'ember_lily', rarity: 'Placeholder', base: 100, demand: '0', exist: '100', stability: 'Stable' },
+  { name: 'Sahur Statue', img: 'sahur_statue', rarity: 'Placeholder', base: 90, demand: '0', exist: '90', stability: 'Stable' },
+
+  // Common Exclusives
+  { name: 'Tung Midas', img: 'tung_midas', rarity: 'Placeholder', base: 80, demand: '0', exist: '80', stability: 'Stable' },
+  { name: 'Gubbity', img: 'gubbity', rarity: 'Placeholder', base: 120, demand: '0', exist: '120', stability: 'Stable' },
+  { name: 'John Doe', img: 'john_doe', rarity: 'Placeholder', base: 90, demand: '0', exist: '90', stability: 'Stable' },
+  { name: '1x4', img: '1x4', rarity: 'Placeholder', base: 100, demand: '0', exist: '100', stability: 'Stable' },
+  { name: 'Issac09', img: 'issac09', rarity: 'Placeholder', base: 30, demand: '0', exist: '30', stability: 'Stable' },
+  { name: 'Jane Doe', img: 'jane_doe', rarity: 'Placeholder', base: 120, demand: '0', exist: '120', stability: 'Stable' },
+  { name: 'Mini Gun Toilet', img: 'mini_gun_toilet', rarity: 'Placeholder', base: 100, demand: '0', exist: '100', stability: 'Stable' },
+  { name: 'Slop Man', img: 'slop_man', rarity: 'Placeholder', base: 40, demand: '0', exist: '40', stability: 'Stable' },
+  { name: 'Graipus Medusi', img: 'graipus_medusi', rarity: 'Placeholder', base: 20, demand: '0', exist: '20', stability: 'Stable' },
+  { name: 'Dragon Canneloni', img: 'dragon_canneloni', rarity: 'Placeholder', base: 40, demand: '0', exist: '40', stability: 'Stable' },
+  { name: 'Glistening Units', img: 'glistening_units', rarity: 'Placeholder', base: 10, demand: '0', exist: '10', stability: 'Stable' },
+  { name: 'Pot Hotspot', img: 'pot_hotspot', rarity: 'Placeholder', base: 10, demand: '0', exist: '10', stability: 'Stable' },
+  { name: 'Jax', img: 'jax', rarity: 'Placeholder', base: 30, demand: '0', exist: '30', stability: 'Stable' },
+  { name: 'Dandy', img: 'dandy', rarity: 'Placeholder', base: 40, demand: '0', exist: '40', stability: 'Stable' },
+  { name: 'Two Time', img: 'two_time', rarity: 'Placeholder', base: 20, demand: '0', exist: '20', stability: 'Stable' },
+
+  // Mythics
+  { name: 'Milestone Forsakend Crafts', img: 'milestone_forsakend_crafts', rarity: 'Placeholder', base: 30, demand: '0', exist: '30', stability: 'Stable' },
+  { name: 'Titan Camara Man', img: 'titan_camara_man', rarity: 'Placeholder', base: 5, demand: '0', exist: '5', stability: 'Stable' },
+  { name: 'Titan TV', img: 'titan_tv', rarity: 'Placeholder', base: 2, demand: '0', exist: '2', stability: 'Stable' },
+  { name: 'Maxwell', img: 'maxwell', rarity: 'Placeholder', base: 3, demand: '0', exist: '3', stability: 'Stable' },
+  { name: 'Large Clockman', img: 'large_clockman', rarity: 'Placeholder', base: 30, demand: '0', exist: '30', stability: 'Stable' },
+  { name: 'Aether Fruit', img: 'aether_fruit', rarity: 'Placeholder', base: 50, demand: '0', exist: '50', stability: 'Stable' },
+  { name: 'Alien Noob', img: 'alien_noob', rarity: 'Placeholder', base: 10, demand: '0', exist: '10', stability: 'Stable' },
+  { name: 'Afterwind', img: 'afterwind', rarity: 'Placeholder', base: 3, demand: '0', exist: '3', stability: 'Stable' },
+  { name: 'Diamond Cat', img: 'diamond_cat', rarity: 'Placeholder', base: 2, demand: '0', exist: '2', stability: 'Stable' },
+  { name: 'Lucky Block', img: 'lucky_block', rarity: 'Placeholder', base: 3, demand: '0', exist: '3', stability: 'Stable' },
+  { name: 'Alien Chance', img: 'alien_chance', rarity: 'Placeholder', base: 7, demand: '0', exist: '7', stability: 'Stable' },
+  { name: 'Verity', img: 'verity', rarity: 'Placeholder', base: 999999999999999999999999999999999, demand: '0', exist: '999999999999999999999999999999999', stability: 'Stable', valueNote: 'JOKE' },
+  { name: 'Banana', img: 'banana', rarity: 'Placeholder', base: 2, demand: '0', exist: '2', stability: 'Stable' },
+  { name: 'Mango Trollface', img: 'mango_trollface', rarity: 'Placeholder', base: 2, demand: '0', exist: '2', stability: 'Stable' },
+  { name: 'Retro Builderman', img: 'retro_builderman', rarity: 'Placeholder', base: 4, demand: '0', exist: '4', stability: 'Stable' },
+  { name: 'King Pepper God', img: 'king_pepper_god', rarity: 'Placeholder', base: 9, demand: '0', exist: '9', stability: 'Stable' },
+  { name: 'Golden Freddy Trashcan', img: 'golden_freddy_trashcan', rarity: 'Placeholder', base: 8, demand: '0', exist: '8', stability: 'Stable' },
+  { name: 'Kreek', img: 'kreek', rarity: 'Placeholder', base: 5, demand: '0', exist: '5', stability: 'Stable' },
+  { name: 'Onest', img: 'onest', rarity: 'Placeholder', base: 4, demand: '0', exist: '4', stability: 'Stable' },
+  { name: 'Happy Computer', img: 'happy_computer', rarity: 'Placeholder', base: 4, demand: '0', exist: '4', stability: 'Stable' },
+  { name: 'Summer E9', img: 'summer_e9', rarity: 'Placeholder', base: 5, demand: '0', exist: '5', stability: 'Stable' },
+  { name: 'ASTRO Large TV Man', img: 'astro_large_tv_man', rarity: 'Placeholder', base: 10, demand: '0', exist: '10', stability: 'Stable' },
+  { name: 'Summer Onest', img: 'summer_onest', rarity: 'Placeholder', base: 8, demand: '0', exist: '8', stability: 'Stable' },
+  { name: 'Sopper', img: 'sopper', rarity: 'Placeholder', base: 0, valueNote: 'Useless', demand: '0', exist: '0', stability: 'Stable' },
+  { name: 'Gandle', img: 'gandle', rarity: 'Placeholder', base: 2, demand: '0', exist: '2', stability: 'Stable' },
+  { name: 'Pomni', img: 'pomni', rarity: 'Placeholder', base: 3, demand: '0', exist: '3', stability: 'Stable' },
+  { name: 'Vova', img: 'vova', rarity: 'Placeholder', base: 3, demand: '0', exist: '3', stability: 'Stable' },
+  { name: 'Mafia', img: 'mafia', rarity: 'Placeholder', base: 8, demand: '0', exist: '8', stability: 'Stable' },
+  { name: 'Admin Lucky Block', img: 'admin_lucky_block', rarity: 'Placeholder', base: 4, demand: '0', exist: '4', stability: 'Stable' },
+
+  // Hidden editing template
+  { name: 'Showcase', img: 'placeholder', rarity: 'Showcase', base: 0, demand: '0', exist: 0, shinyExist: 0, voidExist: 0, stability: 'Stable', signedValue: 0, shinyValue: 0, voidValue: 0, shinySignedValue: 0, voidSignedValue: 0, hidden: true }
+];
+const Items = [
+  { name: 'Showcase', img: 'placeholder', rarity: 'Showcase', base: 0, demand: '0', exist: 0, stability: 'Stable', hidden: true }
+];
+const variants = {
+  normal: { name: 'Normal', key: 'base' },
+  shiny: { name: 'Shiny', key: 'shinyValue' },
+  void: { name: 'Void', key: 'voidValue' },
+  signed: { name: 'Signed', key: 'signedValue' },
+  shinySigned: { name: 'Shiny + Signed', key: 'shinySignedValue' },
+  voidSigned: { name: 'Void + Signed', key: 'voidSignedValue' }
+};
+let side='you';
+const $=id=>document.getElementById(id);
+function imgSrc(x) {
+  return (x.img || 'placeholder') + '.png';
+}
+function safe(img){img.onerror=()=>{if(!img.dataset.fallback){img.dataset.fallback=1;img.src='placeholder.png'}}}
+function modes(u) {
+  return ['normal', 'shiny', 'void', 'signed', 'shinySigned', 'voidSigned'];
+}
+function getStabilityStyle(status){
+  const name=String(status||'Unknown').trim();
+  const key=name.toLowerCase();
+  if(key==='unstable') return {className:'',style:''};
+  if(key==='stable') return {className:'',style:''};
+  if(key==='rising') return {className:'',style:''};
+  if(key==='falling') return {className:'',style:''};
+
+  const storageKey='utd_custom_stability_colors';
+  let colors={};
+  try{colors=JSON.parse(localStorage.getItem(storageKey)||'{}')}catch(e){colors={}}
+  if(!colors[key]){
+    const r=Math.floor(Math.random()*256);
+    const g=Math.floor(Math.random()*256);
+    const b=Math.floor(Math.random()*256);
+    colors[key]=`rgb(${r}, ${g}, ${b})`;
+    try{localStorage.setItem(storageKey,JSON.stringify(colors))}catch(e){}
+  }
+  return {className:'custom-status',style:`--custom-color:${colors[key]}`};
+}
+
+const HIDE_VARIANTS = true;
+
+function render(){
+  $('unitGrid').innerHTML='';
+  function getExist(u, mode) {
+    if (mode === 'shiny' || mode === 'shinySigned') return u.shinyExist ?? u.exist ?? 0;
+    if (mode === 'void' || mode === 'voidSigned') return u.voidExist ?? u.exist ?? 0;
+    return u.exist ?? 0;
+  }
+
+  Units.filter(u=>!u.hidden).forEach(u=>{
+    const c=document.createElement('div');
+    c.className='card';
+    const ms=modes(u);
+    const stability=String(u.stability||'Unknown').trim();
+    const stabilityStyle=getStabilityStyle(stability);
+
+    c.innerHTML=`
+      <img src="${imgSrc(u)}" alt="${u.name}">
+      <div class="unit-card-title">${u.name}</div><span class="rarity">${u.rarity || 'Unspecified'}</span>
+      <div class="variants">
+        ${ms.map(m=>`
+          <button class="v ${m==='normal'?'active':''}" data-m="${m}">
+            ${variants[m].name}
+          </button>
+        `).join('')}
+      </div>
+      <div class="unit-stats">
+        <div class="unit-stat">
+          <span class="unit-stat-label">Value</span>
+          <span class="unit-stat-value unit-value shown">${u.valueNote || (+u.base || 0).toFixed(2)}</span>
+        </div>
+        <div class="unit-stat">
+          <span class="unit-stat-label">Demand</span>
+          <span class="unit-stat-value unit-demand">${u.demand ?? 0}/10</span>
+        </div>
+        <div class="unit-stat">
+          <span class="unit-stat-label">Exist</span>
+          <span class="unit-stat-value unit-exist">${getExist(u, 'normal')}</span>
+        </div>
+        <div class="unit-stat unit-stability">
+          <span class="unit-stat-label">Stability</span>
+          <span class="stability-pill ${stabilityStyle.className}" data-status="${stability.toLowerCase()}" style="${stabilityStyle.style}">${stability}</span>
+        </div>
+      </div>
+    `;
+
+    safe(c.querySelector('img'));
+    const value=c.querySelector('.shown');
+
+    c.querySelectorAll('.v').forEach(button=>{
+      button.onclick=()=>{
+        c.querySelectorAll('.v').forEach(x=>x.classList.remove('active'));
+        button.classList.add('active');
+        const mode=button.dataset.m;
+        value.textContent=mode==='normal' && u.valueNote ? u.valueNote : (+u[variants[mode].key]||0).toFixed(2);
+        c.querySelector('.unit-exist').textContent=getExist(u, mode);
+      };
+    });
+
+    $('unitGrid').append(c);
+  });
+
+  $('itemGrid').innerHTML='';
+  Items.filter(x=>!x.hidden).forEach(x=>{
+    const c=document.createElement('div');
+    c.className='card';
+    c.innerHTML=`
+      <img src="${imgSrc(x)}" alt="${x.name}">
+      <b>${x.name}</b><span class="rarity">${x.rarity || 'Unspecified'}</span>
+      <div class="item-meta"><span>Value <b>${(+x.base||0).toFixed(2)}</b></span><span>Demand <b>${x.demand||0}/10</b></span></div>
+    `;
+    safe(c.querySelector('img'));
+    $('itemGrid').append(c);
+  });
+}
+function populate(){let item=$('type').value==='item',list=(item?Items:Units).filter(x=>!x.hidden);$('select').innerHTML=list.map((x,i)=>`<option value="${i}">${x.name}</option>`).join('');$('variantLabel').style.display=item?'none':'block';$('variant').style.display=item?'none':'block';if(!item)populateVariants()}
+function populateVariants(){let u=Units.filter(x=>!x.hidden)[+$('select').value]||Units.find(x=>!x.hidden);$('variant').innerHTML=modes(u).map(m=>`<option value="${m}">${variants[m].name}</option>`).join('')}
+$('select').onchange=populateVariants;$('type').onchange=populate;
+function openModal(s){side=s;populate();$('modal').classList.add('show')}
+$('modal').onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('show')};$('settings').onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('show')}
+function addEntry(){let item=$('type').value==='item',list=(item?Items:Units).filter(x=>!x.hidden),u=list[+$('select').value],amount=Math.max(1,+$('amt').value||1),m=item?'normal':$('variant').value;if(!u)return;let rawValue=(m==='normal' && u.valueNote) ? 0 : (+u[variants[m].key]||0);let val=rawValue*amount,e=document.createElement('div');e.className='entry';let im=document.createElement('img');im.src=imgSrc(u);safe(im);e.append(im);if(!item&&m!=='normal'){let o=document.createElement('div');o.className='overlay';o.textContent=variants[m].name;o.dataset.x=1;e.append(o)}let info=document.createElement('div');info.innerHTML=`<b>${u.name} x${amount}</b><div class="muted">${item?'Item':'Stability: '+(u.stability || 'Unknown')}</div>`;e.append(info);let v=document.createElement('span');v.className='val';v.textContent=val.toFixed(2);e.append(v);e.onclick=()=>{e.remove();totals()};document.querySelector('#'+side+' .list').append(e);$('modal').classList.remove('show');totals()}
+function totals(){let sum=s=>[...document.querySelectorAll('#'+s+' .val')].reduce((a,x)=>a+(+x.textContent||0),0),a=sum('you'),b=sum('them');$('yt').textContent=a.toFixed(2);$('tt').textContent=b.toFixed(2);let d=a-b;$('res').textContent=d>=.6?'Lose 💀':d<=-.6?'Win 🤑':'Fair 🤝'}
+function show(id){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('discord').classList.toggle('hide',id!=='home')}
+function applyTheme(t){document.body.classList.remove('dark','glass');if(t!=='colorful')document.body.classList.add(t);$('theme').value=t}
+function saveTheme(){let t=$('theme').value;localStorage.setItem('utd_theme',t);applyTheme(t);$('settings').classList.remove('show')}
+function openSettings(){$('theme').value=localStorage.getItem('utd_theme')||'colorful';$('settings').classList.add('show')}
+applyTheme(localStorage.getItem('utd_theme')||'colorful');render();populate();totals();
+</script></body></html>
