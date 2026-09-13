@@ -260,7 +260,7 @@ const Units = [
   { name: 'Titan Camara Man', img: 'titan_camara_man', rarity: 'Placeholder', base: 5, demand: '0', stability: 'Stable' },
   { name: 'Titan TV', img: 'titan_tv', rarity: 'Placeholder', base: 2, demand: '0', stability: 'Stable' },
   { name: 'Maxwell', img: 'maxwell', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
-  { name: 'Large Clockman', img: 'large_clockman', rarity: 'Placeholder', base: 30, demand: '0', , stability: 'Stable' },
+  { name: 'Large Clockman', img: 'large_clockman', rarity: 'Placeholder', base: 30, demand: '0', stability: 'Stable' },
   { name: 'Aether Fruit', img: 'aether_fruit', rarity: 'Placeholder', base: 50, demand: '0', stability: 'Stable' },
   { name: 'Alien Noob', img: 'alien_noob', rarity: 'Placeholder', base: 10, demand: '0', stability: 'Stable' },
   { name: 'Afterwind', img: 'afterwind', rarity: 'Placeholder', base: 3, demand: '0', stability: 'Stable' },
@@ -304,7 +304,7 @@ const $=id=>document.getElementById(id);
 function imgSrc(x) {
   return (x.img || 'placeholder') + '.png';
 }
-function safe(img){img.onerror=()=>{if(!img.dataset.fallback){img.dataset.fallback=1;img.src='placeholder.png'}}}
+function safe(img){if(!img)return;img.onerror=()=>{if(!img.dataset.fallback){img.dataset.fallback=1;img.src='placeholder.png'}}}
 function modes(u) {
   return ['normal', 'shiny', 'void', 'signed', 'shinySigned', 'voidSigned'];
 }
@@ -354,7 +354,7 @@ function render(){
       <div class="unit-stats">
         <div class="unit-stat">
           <span class="unit-stat-label">Value</span>
-          <span class="unit-stat-value unit-value shown">${u.valueNote || (+u.base || 0).toFixed(2)}</span>
+          <span class="unit-stat-value unit-value shown">${u.valueNote ?? ((Number.isFinite(Number(u.base)) ? Number(u.base) : 0).toFixed(2))}</span>
         </div>
         <div class="unit-stat">
           <span class="unit-stat-label">Demand</span>
@@ -400,11 +400,11 @@ function populateVariants(){let u=Units.filter(x=>!x.hidden)[+$('select').value]
 $('select').onchange=populateVariants;$('type').onchange=populate;
 function openModal(s){side=s;populate();$('modal').classList.add('show')}
 $('modal').onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('show')};$('settings').onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('show')}
-function addEntry(){let item=$('type').value==='item',list=(item?Items:Units).filter(x=>!x.hidden),u=list[+$('select').value],amount=Math.max(1,+$('amt').value||1),m=item?'normal':$('variant').value;if(!u)return;let rawValue=(m==='normal' && u.valueNote) ? 0 : (+u[variants[m].key]||0);let val=rawValue*amount,e=document.createElement('div');e.className='entry';let im=document.createElement('img');im.src=imgSrc(u);safe(im);e.append(im);if(!item&&m!=='normal'){let o=document.createElement('div');o.className='overlay';o.textContent=variants[m].name;o.dataset.x=1;e.append(o)}let info=document.createElement('div');info.innerHTML=`<b>${u.name} x${amount}</b><div class="muted">${item?'Item':'Stability: '+(u.stability || 'Unknown')}</div>`;e.append(info);let v=document.createElement('span');v.className='val';v.textContent=val.toFixed(2);e.append(v);e.onclick=()=>{e.remove();totals()};document.querySelector('#'+side+' .list').append(e);$('modal').classList.remove('show');totals()}
+function addEntry(){let item=$('type').value==='item',list=(item?Items:Units).filter(x=>!x.hidden),u=list[+$('select').value],amount=Math.max(1,Math.floor(Number($('amt').value)||1)),m=item?'normal':$('variant').value;if(!u)return;let rawValue=(m==='normal'&&u.valueNote)?0:Number(u[variants[m].key])||0;let val=rawValue*amount,e=document.createElement('div');e.className='entry';let im=document.createElement('img');im.src=imgSrc(u);safe(im);e.append(im);if(!item&&m!=='normal'){let o=document.createElement('div');o.className='overlay';o.textContent=variants[m].name;o.dataset.x=1;e.append(o)}let info=document.createElement('div');info.innerHTML=`<b>${u.name} x${amount}</b><div class="muted">${item?'Item':'Stability: '+(u.stability || 'Unknown')}</div>`;e.append(info);let v=document.createElement('span');v.className='val';v.textContent=val.toFixed(2);e.append(v);e.onclick=()=>{e.remove();totals()};document.querySelector('#'+side+' .list').append(e);$('modal').classList.remove('show');totals()}
 function totals(){let sum=s=>[...document.querySelectorAll('#'+s+' .val')].reduce((a,x)=>a+(+x.textContent||0),0),a=sum('you'),b=sum('them');$('yt').textContent=a.toFixed(2);$('tt').textContent=b.toFixed(2);let d=a-b;$('res').textContent=d>=.6?'Lose 💀':d<=-.6?'Win 🤑':'Fair 🤝'}
-function show(id){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');$('discord').classList.toggle('hide',id!=='home')}
+function show(id){const section=$(id);if(!section)return;document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));section.classList.add('active');$('discord').classList.toggle('hide',id!=='home')}
 function applyTheme(t){document.body.classList.remove('dark','glass');if(t!=='colorful')document.body.classList.add(t);$('theme').value=t}
-function saveTheme(){let t=$('theme').value;localStorage.setItem('utd_theme',t);applyTheme(t);$('settings').classList.remove('show')}
-function openSettings(){$('theme').value=localStorage.getItem('utd_theme')||'colorful';$('settings').classList.add('show')}
-applyTheme(localStorage.getItem('utd_theme')||'colorful');render();populate();totals();
+function saveTheme(){let t=$('theme').value||'colorful';try{localStorage.setItem('utd_theme',t)}catch(e){}applyTheme(t);$('settings').classList.remove('show')}
+function openSettings(){let t='colorful';try{t=localStorage.getItem('utd_theme')||'colorful'}catch(e){}$('theme').value=t;$('settings').classList.add('show')}
+let savedTheme='colorful';try{savedTheme=localStorage.getItem('utd_theme')||'colorful'}catch(e){}applyTheme(savedTheme);render();populate();totals();
 </script></body></html>
