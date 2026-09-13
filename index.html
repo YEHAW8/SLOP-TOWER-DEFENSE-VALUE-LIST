@@ -144,7 +144,7 @@ section.active{display:block}
 .unit-stat{display:flex;align-items:baseline;gap:4px;min-height:0;padding:0;background:none;border:0;box-shadow:none}
 .unit-stat-label{font-size:10px;color:var(--muted);font-weight:700}
 .unit-stat-value{font-size:13px;font-weight:850;white-space:nowrap}
-.unit-value{font-size:15px}.unit-demand{color:#f3d27a}.unit-exist{color:#8fd8e7}
+.unit-value{font-size:15px}.unit-demand{color:#f3d27a}
 .unit-stability{margin-left:auto;display:flex;align-items:center;gap:6px}
 .stability-pill{max-width:180px;min-width:72px;text-align:center;padding:4px 9px;border-radius:999px;background:#ffffff0d;border:1px solid #ffffff12;font-size:10px;font-weight:850;box-shadow:0 2px 0 #0003;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stability-pill[data-status="unstable"]{background:#ff45451f;color:#ff7777;border-color:#ff555544}
@@ -376,7 +376,6 @@ function render(){
         button.classList.add('active');
         const mode=button.dataset.m;
         value.textContent=mode==='normal' && u.valueNote ? u.valueNote : (+u[variants[mode].key]||0).toFixed(2);
-        c.querySelector('.unit-exist').textContent=getExist(u, mode);
       };
     });
 
